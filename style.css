@@ -1,0 +1,61 @@
+body{
+    background-color:rgba(0,200,0,0.4);
+}
+
+#Titulo h1{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    color:red;
+}
+
+#Titulo p{
+    font-size: larger;
+    font-family:'Courier New', Courier, monospace
+}
+
+#Formulario{
+    margin: 5px 520px;
+    padding: 5px;
+    border-style: solid;
+    border-radius: 45px;
+    text-align: center;
+}
+
+#Formulario form{
+    font-size:x-large;
+    font-family:'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+.Listas{
+    display: flex;
+    gap: 200px;
+    justify-content: center;
+    margin: 30px 120px;
+}
+
+#Lista1{
+    margin: 5px;
+    padding: 5px 50px;
+    border-style: solid;
+    border-radius: 10px;
+    border-color: gray;
+    text-align: center;
+}
+
+#Lista1 p{
+    color: red;
+}
+
+#Lista2{
+    margin: 5px;
+    padding: 5px 50px;
+    border-style: solid;
+    border-radius: 10px;
+    border-color: green;
+    text-align: center;
+}
+
+#Lista2 p{
+    color: blue;
+}
