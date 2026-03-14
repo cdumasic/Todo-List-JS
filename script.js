@@ -1,42 +1,49 @@
 const Formulario = document.getElementById("Form");
+const tarea = document.getElementById("ftask");
+const TareasPorHacer = document.querySelector(".Tareas1");
+const TareasRealizadas = document.querySelector(".Tareas2");
 
-Formulario.addEventListener("submit", function(event){
-    event.preventDefault();
-    const tarea = document.getElementById("ftask").value;
-    console.log("Tarea Añadida: ",tarea);
-    const TareasPorHacer = document.getElementsByClassName("Tareas1");
-    const TareaNueva = document.createElement("li");
-    TareaNueva.textContent = tarea;
-    const Boton = document.createElement("button");
-    Boton.setAttribute("class","boton-tareas");
-    Boton.textContent = "Realizado";
-    TareaNueva.appendChild(Boton);
-    TareasPorHacer[0].appendChild(TareaNueva);
-    input.value = "";
-})
-
-const TareaTerminada = document.getElementsByClassName("boton-tareas");
-
-for(let Tareas of TareaTerminada){
-    Tareas.addEventListener('click', function(){
-        const tareaRealizada = this.parentElement;
+function BotonAñadirTarea(boton){
+    boton.addEventListener('click', function(){
+        const TareaHecha = this.parentElement;
 
         this.className = "boton-eliminar";
         this.textContent = "Eliminar";
 
-        const TareasHechas = document.getElementsByClassName("Tareas2");
-        TareasHechas[0].appendChild(tareaRealizada);
+        TareasRealizadas.appendChild(TareaHecha);
+        const nuevoBoton = TareaHecha.querySelector(".boton-eliminar");
+        BotonEliminarTarea(nuevoBoton);
     });
 }
 
-const TareasHechas = document.getElementsByClassName("boton-eliminar");
-
-for(let Tareas2 of TareasHechas){
-    Tareas2.addEventListener('click', function(){
+function BotonEliminarTarea(boton){
+    boton.addEventListener('click', function(){
         const tareaRealizada = this.parentElement;
-
         tareaRealizada.remove();
     });
 }
+
+document.querySelectorAll(".boton-tareas").forEach(boton => {BotonAñadirTarea(boton)});
+document.querySelectorAll(".boton-eliminar").forEach(boton => {BotonEliminarTarea(boton)});
+
+Formulario.addEventListener("submit", function(event){
+    event.preventDefault();
+    if(tarea.value.trim() == "") return;
+    console.log("Tarea Añadida: ",tarea.value);
+    
+    const TareaNueva = document.createElement("li");
+    TareaNueva.textContent = tarea.value + " ";
+
+    const Boton = document.createElement("button");
+    Boton.setAttribute("class","boton-tareas");
+    Boton.textContent = "Realizado";
+    BotonAñadirTarea(Boton);
+
+    TareaNueva.appendChild(Boton);
+    TareasPorHacer.appendChild(TareaNueva);
+
+    tarea.value = "";
+})
+
 
 
