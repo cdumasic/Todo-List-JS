@@ -14,7 +14,8 @@ body{
 }
 
 #Formulario{
-    margin: 5px 520px;
+    width: 400px;
+    margin: auto;
     padding: 5px;
     border-style: solid;
     border-radius: 45px;
@@ -34,7 +35,7 @@ body{
     margin: 30px 120px;
 }
 
-#Lista1{
+.Lista{
     margin: 5px;
     padding: 5px 50px;
     border-style: solid;
@@ -43,11 +44,11 @@ body{
     text-align: center;
 }
 
-#Lista1 p{
+.Lista p{
     color: red;
 }
 
-#Lista2{
+.Lista-completada{
     margin: 5px;
     padding: 5px 50px;
     border-style: solid;
@@ -56,6 +57,6 @@ body{
     text-align: center;
 }
 
-#Lista2 p{
+.Lista-completada p{
     color: blue;
 }
