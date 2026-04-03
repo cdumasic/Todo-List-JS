@@ -35,6 +35,13 @@ body{
     margin: 30px 120px;
 }
 
+.Listas2{
+    display: flex;
+    gap: 200px;
+    justify-content: center;
+    margin: 30px 200px 0px 225px;
+}
+
 .Lista{
     margin: 5px;
     padding: 5px 50px;
@@ -48,12 +55,21 @@ body{
     color: red;
 }
 
-.Lista-completada{
+.Lista-proceso{
     margin: 5px;
     padding: 5px 50px;
     border-style: solid;
     border-radius: 10px;
     border-color: green;
+    text-align: center;
+}
+
+.Lista-completada{
+    margin: 5px;
+    padding: 5px 50px;
+    border-style: solid;
+    border-radius: 10px;
+    border-color: blue;
     text-align: center;
 }
 
