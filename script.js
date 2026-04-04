@@ -3,9 +3,18 @@ const tareaIngresada = document.getElementById("ftask");
 const TareasPorHacer = document.querySelector(".Tareas1");
 const TareasEnProceso = document.querySelector(".Tareas2");
 const TareasCompletadas = document.querySelector(".Tareas3");
-let ids = 0;
+
+const tareasGuardadas = localStorage.getItem("tareas");
 
 let tareas = [];
+let ids = 0;
+
+if (tareasGuardadas) {
+    const tareasCargadas = JSON.parse(tareasGuardadas);
+    tareas = tareasCargadas;
+    ids = tareasCargadas.length;
+    RenderTareas();
+}
 
 function AgregarTareas(texto){
     const TareaNueva = {
@@ -15,6 +24,7 @@ function AgregarTareas(texto){
     };
     tareas.push(TareaNueva);
     ids++;
+    localStorage.setItem("tareas",JSON.stringify(tareas));
     RenderTareas();
 }
 
@@ -68,10 +78,12 @@ function RenderTareas(){
             Boton5.onclick = () => {
                 tareas = tareas.filter(t => t !== tarea);
                 TareaNueva.remove();
+                localStorage.setItem("tareas",JSON.stringify(tareas));
             }
             TareaNueva.appendChild(Boton5);
         }
     })
+    localStorage.setItem("tareas",JSON.stringify(tareas));
 }
 
 function CrearBotones(name,text){
