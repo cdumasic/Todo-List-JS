@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
     <main>
-        <div id="Titulo">
+        <div id="Titulo" class="text-3xl">
             <h1>Lista de Tareas Básicas</h1>
             <p>Esta lista sirve para recordar que cosas tengo que hacer diariamente:</p>
         </div>
@@ -19,24 +20,22 @@
                 <input type="submit" value="Enviar">
             </form>
         </div>
-        <div class="Listas">
-            <div class="Lista">
+        <div id="Listas">
+            <div id="Lista">
                 <p>Lista de tareas por hacer</p>
-                <ol class="Tareas1">
+                <ol id="Tareas1">
                     
                 </ol>
             </div>
-            <div class="Lista-proceso">
+            <div id="Lista-proceso">
                 <p>Lista de tareas realizadas</p>
-                <ol class="Tareas2">
+                <ol id="Tareas2">
                     
                 </ol>
             </div>
-        </div>
-        <div class="Listas2">
-            <div class="Lista-completada">
+            <div id="Lista-completada">
                 <p>Lista de tareas completadas</p>
-                <ol class="Tareas3">
+                <ol id="Tareas3">
                     
                 </ol>
             </div>
