@@ -4,37 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <!--<link rel="stylesheet" href="style.css">-->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body>
+<body class="bg-emerald-600 ">
     <main>
-        <div id="Titulo" class="text-3xl">
-            <h1>Lista de Tareas Básicas</h1>
-            <p>Esta lista sirve para recordar que cosas tengo que hacer diariamente:</p>
+        <div id="Titulo">
+            <h1 class="font-serif text-4xl text-center text-red-600 ">Lista de Tareas Básicas</h1>
+            <p class="font-[Courier_New] text-lg">Esta lista sirve para recordar que cosas tengo que hacer diariamente:</p>
         </div>
-        <div id="Formulario">
-            <form id="Form">
+        <div id="Formulario" class="w-400px">
+            <form id="Form" class="">
                 <label for="ftask">Tarea a realizar</label><br>
                 <input type="text" id="ftask" name="ftask">
                 <input type="submit" value="Enviar">
             </form>
         </div>
-        <div id="Listas">
-            <div id="Lista">
-                <p>Lista de tareas por hacer</p>
+        <div id="Listas" class="">
+            <div id="Lista" class="">
+                <p class="text-white">Lista de tareas por hacer</p>
                 <ol id="Tareas1">
                     
                 </ol>
             </div>
-            <div id="Lista-proceso">
-                <p>Lista de tareas realizadas</p>
+            <div id="Lista-proceso" class="">
+                <p class="text-pink-700">Lista de tareas realizadas</p>
                 <ol id="Tareas2">
                     
                 </ol>
             </div>
-            <div id="Lista-completada">
-                <p>Lista de tareas completadas</p>
+            <div id="Lista-completada" class="" >
+                <p class="text-blue-900">Lista de tareas completadas</p>
                 <ol id="Tareas3">
                     
                 </ol>
