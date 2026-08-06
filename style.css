@@ -28,51 +28,50 @@ body{
     font-weight: bold;
 }
 
-.Listas{
+#Listas{
     display: flex;
-    gap: 200px;
     justify-content: center;
     margin: 30px 120px;
-}
-
-.Listas2{
     display: flex;
-    gap: 200px;
-    justify-content: center;
-    margin: 30px 200px 0px 225px;
+    flex-flow: row wrap;
+    align-items: baseline;
+
 }
 
-.Lista{
-    margin: 5px;
+#Lista{
+    margin: 10px;
     padding: 5px 50px;
     border-style: solid;
     border-radius: 10px;
     border-color: gray;
     text-align: center;
+    flex-grow: 1;
 }
 
-.Lista p{
+#Lista p{
     color: red;
 }
 
-.Lista-proceso{
-    margin: 5px;
+#Lista-proceso{
+    margin: 10px;
     padding: 5px 50px;
     border-style: solid;
     border-radius: 10px;
     border-color: green;
     text-align: center;
+    flex-grow: 1;
 }
 
-.Lista-completada{
-    margin: 5px;
+#Lista-completada{
+    margin: 10px;
     padding: 5px 50px;
     border-style: solid;
     border-radius: 10px;
     border-color: blue;
     text-align: center;
+    flex-grow: 1;
 }
 
-.Lista-completada p{
+#Lista-completada p{
     color: blue;
 }
