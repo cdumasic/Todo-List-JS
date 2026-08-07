@@ -7,35 +7,35 @@
     <!--<link rel="stylesheet" href="style.css">-->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="bg-emerald-600 ">
+<body class="bg-blue-400 ">
     <main>
         <div id="Titulo">
             <h1 class="font-serif text-4xl text-center text-red-600 ">Lista de Tareas Básicas</h1>
             <p class="font-[Courier_New] text-lg">Esta lista sirve para recordar que cosas tengo que hacer diariamente:</p>
         </div>
         <div id="Formulario" class="w-400px">
-            <form id="Form" class="">
+            <form data-js="form-1" class="">
                 <label for="ftask">Tarea a realizar</label><br>
-                <input type="text" id="ftask" name="ftask">
+                <input type="text" data-js="input-text-1" name="ftask">
                 <input type="submit" value="Enviar">
             </form>
         </div>
         <div id="Listas" class="">
             <div id="Lista" class="">
                 <p class="text-white">Lista de tareas por hacer</p>
-                <ol id="Tareas1">
+                <ol data-js="list-task-1">
                     
                 </ol>
             </div>
             <div id="Lista-proceso" class="">
                 <p class="text-pink-700">Lista de tareas realizadas</p>
-                <ol id="Tareas2">
+                <ol data-js="list-task-2">
                     
                 </ol>
             </div>
             <div id="Lista-completada" class="" >
                 <p class="text-blue-900">Lista de tareas completadas</p>
-                <ol id="Tareas3">
+                <ol data-js="list-task-3">
                     
                 </ol>
             </div>
