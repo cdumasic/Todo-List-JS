@@ -7,34 +7,34 @@
     <!--<link rel="stylesheet" href="style.css">-->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="bg-blue-400 ">
+<body class="bg-blue-400">
     <main>
         <div id="Titulo">
             <h1 class="font-serif text-4xl text-center text-red-600 ">Lista de Tareas Básicas</h1>
-            <p class="font-[Courier_New] text-lg">Esta lista sirve para recordar que cosas tengo que hacer diariamente:</p>
+            <p class="font-sans text-lg">Esta lista sirve para recordar que cosas tengo que hacer diariamente:</p>
         </div>
-        <div id="Formulario" class="w-400px">
-            <form data-js="form-1" class="">
-                <label for="ftask">Tarea a realizar</label><br>
-                <input type="text" data-js="input-text-1" name="ftask">
-                <input type="submit" value="Enviar">
+        <div id="Formulario" class="flex justify-center w-400px">
+            <form data-js="form-1">
+                <label for="ftask" class="block text-white text-center mb-3 font-sans text-xl">Tarea a realizar</label>
+                <input type="text" data-js="input-text-1" name="ftask" class="bg-white text-black px-2 py-1 mr-1 rounded-md shadow-md focus:outline-none">
+                <input type="submit" value="Enviar" class="text-white bg-red-500 px-2 py-1 rounded-md font-medium shadow-lg hover:bg-red-400 transition-all active:scale-95 cursor-pointer">
             </form>
         </div>
-        <div id="Listas" class="">
-            <div id="Lista" class="">
-                <p class="text-white">Lista de tareas por hacer</p>
+        <div id="Listas" class="pt-6 flex justify-evenly">
+            <div id="Lista-por-hacer" class="bg-gray-400 px-2 py-2 w-60 line-clamp-2 rounded-md shadow-md">
+                <p class="text-white text-center">Lista de tareas por hacer</p>
                 <ol data-js="list-task-1">
                     
                 </ol>
             </div>
-            <div id="Lista-proceso" class="">
-                <p class="text-pink-700">Lista de tareas realizadas</p>
+            <div id="Lista-proceso" class="bg-blue-600 px-2 py-2 w-60 line-clamp-2 rounded-md shadow-md">
+                <p class="text-black text-center">Lista de tareas realizadas</p>
                 <ol data-js="list-task-2">
                     
                 </ol>
             </div>
-            <div id="Lista-completada" class="" >
-                <p class="text-blue-900">Lista de tareas completadas</p>
+            <div id="Lista-completada" class="bg-green-400 px-2 py-2 w-60 line-clamp-2 rounded-md shadow-md">
+                <p class="text-blue-900 text-center">Lista de tareas completadas</p>
                 <ol data-js="list-task-3">
                     
                 </ol>
