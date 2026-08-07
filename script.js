@@ -10,17 +10,17 @@ let tareas = []; // Variable para las tareas en general
 
 function EstadoPorHacer(TareaNueva,tarea){ // Pone una tarea en estado por hacer
     TareasPorHacer.appendChild(TareaNueva);
-    CrearElementos(TareaNueva,tarea,"boton-tareas","Comenzando","en-proceso");
+    CrearElementos(TareaNueva,tarea,"Comenzando","en-proceso");
 }
 function EstadoEnProceso(TareaNueva,tarea){ // Pone una tarea en estado en proceso
     TareasEnProceso.appendChild(TareaNueva);
-    CrearElementos(TareaNueva,tarea,"boton-deshacer","Deshacer","por-hacer")
-    CrearElementos(TareaNueva,tarea,"boton-completar","Completado","completado")
+    CrearElementos(TareaNueva,tarea,"Deshacer","por-hacer")
+    CrearElementos(TareaNueva,tarea,"Completado","completado")
 }
 function EstadoCompletado(TareaNueva,tarea){ // Pone una tarea en estado completado
     TareasCompletadas.appendChild(TareaNueva);
-    CrearElementos(TareaNueva,tarea,"boton-deshacer-2","Deshacer","en-proceso")
-    const Boton5 = CrearBotones("boton-eliminar","Eliminar");
+    CrearElementos(TareaNueva,tarea,"Deshacer","en-proceso")
+    const Boton5 = CrearBotones("Eliminar");
     Boton5.onclick = () => {
         tareas = tareas.filter(t => t.id !== tarea.id);
         GuardarTareas();
@@ -72,26 +72,38 @@ function GuardarTareas(){ // Guarda las tareas en el local storage
     localStorage.setItem("tareas",JSON.stringify(tareas)); 
 }
 
-function CrearElementos(TareaNueva,tarea,nombreClaseBoton,nombreBoton,estado){ // Crea elementos de botones
-    const Boton = CrearBotones(nombreClaseBoton,nombreBoton);
+function CrearElementos(TareaNueva,tarea,nombreBoton,estado){ // Crea elementos de botones
+    const Boton = CrearBotones(nombreBoton);
     Boton.onclick = () => {
         CambiarEstado(tarea.id,estado)
     }
     TareaNueva.appendChild(Boton);
 }
 
-function CrearBotones(name,text){ // Crea botones con clase y nombre
+function CrearBotones(text){ // Crea botones con clase y nombre
     const Boton = document.createElement("button");
-    Boton.setAttribute("id",name);
+    if(configEstilosBotones[text]){
+        Boton.setAttribute("class",configEstilosBotones[text]);
+    }
     Boton.textContent = text;
     return Boton
 }
 
+function CrearEstiloBotones(text){
+
+}
 const configEstados = { // Lista de estados
     'por-hacer': EstadoPorHacer,
     'en-proceso': EstadoEnProceso,
     'completado': EstadoCompletado
 };
+
+const configEstilosBotones = {
+    'Comenzando':'text-white bg-red-500 px-2 py-1 rounded-md font-medium shadow-lg hover:bg-red-400 transition-all active:scale-95 cursor-pointer',
+    'Completado':'text-white bg-red-500 px-2 py-1 rounded-md font-medium shadow-lg hover:bg-red-400 transition-all active:scale-95 cursor-pointer',
+    'Deshacer':'text-white bg-red-500 px-2 py-1 rounded-md font-medium shadow-lg hover:bg-red-400 transition-all active:scale-95 cursor-pointer',
+    'Eliminar':'text-white bg-red-500 px-2 py-1 rounded-md font-medium shadow-lg hover:bg-red-400 transition-all active:scale-95 cursor-pointer' 
+}
 
 if (tareasGuardadas) { // Condicional para revisar si hay tareas disponibles y ponerlas
     const tareasCargadas = JSON.parse(tareasGuardadas);
