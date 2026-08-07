@@ -1,19 +1,12 @@
 // Constantes para obtener el formulario, la tarea ingresada, y las listas de tareas
-const Formulario = document.getElementById("Form");
-const tareaIngresada = document.getElementById("ftask");
-const TareasPorHacer = document.getElementById("Tareas1");
-const TareasEnProceso = document.getElementById("Tareas2");
-const TareasCompletadas = document.getElementById("Tareas3");
-
+const Formulario = document.querySelector('[data-js="form-1"]')
+const tareaIngresada = document.querySelector('[data-js="input-text-1"]')
+const TareasPorHacer = document.querySelector('[data-js="list-task-1"]');
+const TareasEnProceso = document.querySelector('[data-js="list-task-2"]');
+const TareasCompletadas = document.querySelector('[data-js="list-task-3"]');
 const tareasGuardadas = localStorage.getItem("tareas"); // Constante para guardar tareas
 
 let tareas = []; // Variable para las tareas en general
-
-if (tareasGuardadas) { // Condicional para revisar si hay tareas disponibles y ponerlas
-    const tareasCargadas = JSON.parse(tareasGuardadas);
-    tareas = tareasCargadas;
-    RenderTareas();
-}
 
 function EstadoPorHacer(TareaNueva,tarea){ // Pone una tarea en estado por hacer
     TareasPorHacer.appendChild(TareaNueva);
@@ -35,12 +28,6 @@ function EstadoCompletado(TareaNueva,tarea){ // Pone una tarea en estado complet
     }
     TareaNueva.appendChild(Boton5);
 }
-
-const configEstados = { // Lista de estados
-    'por-hacer': EstadoPorHacer,
-    'en-proceso': EstadoEnProceso,
-    'completado': EstadoCompletado
-};
 
 function AgregarTareas(texto){ // Añade una nueva tarea con id, texto y estado
     const TareaNueva = {
@@ -81,8 +68,6 @@ function RenderTareas(){ //(Cambiar) Actualiza todas las tareas para ver si camb
     })
 }
 
-
-
 function GuardarTareas(){ // Guarda las tareas en el local storage
     localStorage.setItem("tareas",JSON.stringify(tareas)); 
 }
@@ -100,6 +85,18 @@ function CrearBotones(name,text){ // Crea botones con clase y nombre
     Boton.setAttribute("id",name);
     Boton.textContent = text;
     return Boton
+}
+
+const configEstados = { // Lista de estados
+    'por-hacer': EstadoPorHacer,
+    'en-proceso': EstadoEnProceso,
+    'completado': EstadoCompletado
+};
+
+if (tareasGuardadas) { // Condicional para revisar si hay tareas disponibles y ponerlas
+    const tareasCargadas = JSON.parse(tareasGuardadas);
+    tareas = tareasCargadas;
+    RenderTareas();
 }
 
 Formulario.addEventListener("submit", function(event){ // Obtener la tarea del formulario 
