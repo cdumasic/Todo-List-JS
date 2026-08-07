@@ -1,3 +1,4 @@
+import { configEstilosBotones } from './style_atributes.js'
 // Constantes para obtener el formulario, la tarea ingresada, y las listas de tareas
 const Formulario = document.querySelector('[data-js="form-1"]')
 const tareaIngresada = document.querySelector('[data-js="input-text-1"]')
@@ -58,6 +59,7 @@ function RenderTareas(){ //(Cambiar) Actualiza todas las tareas para ver si camb
         Texto.setAttribute("id","Nombre-Tarea");
         Texto.textContent = tarea.texto;
         TareaNueva.appendChild(Texto);
+        TareaNueva.setAttribute("class","my-2");
 
         if(configEstados[tarea.estado]){
             configEstados[tarea.estado](TareaNueva,tarea);
@@ -89,21 +91,12 @@ function CrearBotones(text){ // Crea botones con clase y nombre
     return Boton
 }
 
-function CrearEstiloBotones(text){
-
-}
 const configEstados = { // Lista de estados
     'por-hacer': EstadoPorHacer,
     'en-proceso': EstadoEnProceso,
     'completado': EstadoCompletado
 };
 
-const configEstilosBotones = {
-    'Comenzando':'text-white bg-red-500 px-2 py-1 rounded-md font-medium shadow-lg hover:bg-red-400 transition-all active:scale-95 cursor-pointer',
-    'Completado':'text-white bg-red-500 px-2 py-1 rounded-md font-medium shadow-lg hover:bg-red-400 transition-all active:scale-95 cursor-pointer',
-    'Deshacer':'text-white bg-red-500 px-2 py-1 rounded-md font-medium shadow-lg hover:bg-red-400 transition-all active:scale-95 cursor-pointer',
-    'Eliminar':'text-white bg-red-500 px-2 py-1 rounded-md font-medium shadow-lg hover:bg-red-400 transition-all active:scale-95 cursor-pointer' 
-}
 
 if (tareasGuardadas) { // Condicional para revisar si hay tareas disponibles y ponerlas
     const tareasCargadas = JSON.parse(tareasGuardadas);
