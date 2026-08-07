@@ -1,5 +1,5 @@
 body{
-    background-color:rgba(0,200,0,0.4);
+    background-color:rgba(145, 255, 0, 0.4);
 }
 
 #Titulo h1{
@@ -57,7 +57,7 @@ body{
     padding: 5px 50px;
     border-style: solid;
     border-radius: 10px;
-    border-color: green;
+    border-color: rgb(110, 207, 110);
     text-align: center;
     flex-grow: 1;
 }
