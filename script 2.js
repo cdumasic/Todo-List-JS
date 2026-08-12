@@ -42,6 +42,27 @@ function AlmacenarTareasEnListas(lista,tarea){
     lista.push(tarea);
 }
 
+const MoverEstados = {
+    'por-hacer': MoverTareasEnListas,
+    'en-proceso': MoverTareasEnListas,
+    'completado': MoverTareasEnListas
+}
+
+function MoverTareasEnListas(lista1,lista2,tarea){
+    lista2.push(tarea);
+    lista1.pop(tarea);
+}
+
+const EliminarEstados = {
+    'por-hacer': AlmacenarTareasEnListas,
+    'en-proceso': AlmacenarTareasEnListas,
+    'completado': AlmacenarTareasEnListas
+}
+
+function EliminarTareasEnLista(lista, tarea){
+    lista.pop(tarea);
+}
+
 /*
 function EstadoPorHacer(TareaNueva,tarea){ // Pone una tarea en estado por hacer
     TareasPorHacer.appendChild(TareaNueva);
@@ -75,6 +96,7 @@ function AgregarTareas(texto){ // Añade una nueva tarea con id, texto y estado
     tareas.push(TareaNueva);
     TareasPorHacer_List.push(TareaNueva)
     GuardarTareasLocalStorage();
+    CrearElementosLista(TareasPorHacer,(tarea));
     RenderTareas(TareaNueva);
 }
 
@@ -132,23 +154,47 @@ function CrearElementos(TareaNueva,tarea,nombreBoton,estado){ // Crea elementos 
 function CrearBotones(tarea,Bloque){
     if(tarea.textoBotonDeshacer){
         CrearBotonesIndividuales(0,Bloque)
+      
     }
     CrearBotonesIndividuales(tarea.textoBotonAccion,Bloque)
-}
+}   
 
-function CrearBotonesIndividuales(texto,Bloque){
+function CrearBotonesIndividuales(texto){
     const Boton = document.createElement("button");
     if(configEstilosBotones[EstadosBotones[texto]]){
         Boton.setAttribute("class",configEstilosBotones[EstadosBotones[texto]]);
     }
     Boton.textContent = EstadosBotones[texto];
-    Bloque.appendChild(Boton);
+    return Boton;
 }
 
 const CrearBoton1 = {
     1 : CrearBotones,
     2 : CrearBotones,
     3 : CrearBotones
+}
+
+function AsignarAccion(boton, tarea){
+  
+}
+
+const Acciones = {
+    0 : Deshacer,
+    1 : Mover,
+    2 : Eliminar
+}
+
+function Deshacer(tarea){
+    
+}
+
+function Mover(tarea){
+    const Nuevoestado = tarea.estado + 1;
+    MoverEstados(Estados(tarea.estado))(Listas(tarea.estado),Listas(tarea.estado + 1),tarea);
+}
+
+function Eliminar(tarea){
+    
 }
 /*
 const configEstados = { // Lista de estados
