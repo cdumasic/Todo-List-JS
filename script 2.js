@@ -32,6 +32,12 @@ const Listas = {
     'completado': TareasCompletadas_List
 }
 
+const ListasHTML = {
+    'por-hacer': TareasPorHacer,
+    'en-proceso': TareasEnProceso,
+    'completado': TareasCompletadas
+}
+
 const ListaEstados = {
     'por-hacer': AlmacenarTareasEnListas,
     'en-proceso': AlmacenarTareasEnListas,
@@ -54,9 +60,9 @@ function MoverTareasEnListas(lista1,lista2,tarea){
 }
 
 const EliminarEstados = {
-    'por-hacer': AlmacenarTareasEnListas,
-    'en-proceso': AlmacenarTareasEnListas,
-    'completado': AlmacenarTareasEnListas
+    'por-hacer': EliminarTareasEnLista,
+    'en-proceso': EliminarTareasEnLista,
+    'completado': EliminarTareasEnLista
 }
 
 function EliminarTareasEnLista(lista, tarea){
@@ -96,8 +102,7 @@ function AgregarTareas(texto){ // Añade una nueva tarea con id, texto y estado
     tareas.push(TareaNueva);
     TareasPorHacer_List.push(TareaNueva)
     GuardarTareasLocalStorage();
-    CrearElementosLista(TareasPorHacer,(tarea));
-    RenderTareas(TareaNueva);
+    RenderInicial(TareaNueva);
 }
 
 function CrearElementosLista(listaHTML, tarea){
@@ -129,8 +134,14 @@ function CambiarEstado(id,nuevoEstado){ // Cambia el estado de una tarea
 
 */
 function RenderInicial(){ //(Cambiar) Actualiza todas las tareas para ver si cambiaron de estado
-    tareas.forEach(tarea =>{
+    TareasPorHacer_List.forEach(tarea =>{
         CrearElementosLista(TareasPorHacer,tarea);
+    })
+    TareasEnProceso_List.forEach(tarea =>{
+        CrearElementosLista(TareasEnProceso,tarea);
+    })
+    TareasCompletadas_List.forEach(tarea =>{
+        CrearElementosLista(TareasCompletadas,tarea);
     })
 }
 
@@ -153,11 +164,14 @@ function CrearElementos(TareaNueva,tarea,nombreBoton,estado){ // Crea elementos 
 
 function CrearBotones(tarea,Bloque){
     if(tarea.textoBotonDeshacer){
-        CrearBotonesIndividuales(0,Bloque)
-      
+        const BotonDeshacer = CrearBotonesIndividuales(0);
+        BotonDeshacer = AsignarAccion(0,BotonDeshacer,tarea);
+        Bloque.appendChild(BotonDeshacer);
     }
-    CrearBotonesIndividuales(tarea.textoBotonAccion,Bloque)
-}   
+    const BotonAccion = CrearBotonesIndividuales(tarea.textoBotonAccion);
+    BotonAccion = AsignarAccion(tarea.textoBotonAccion,BotonAccion,tarea);
+    Bloque.appendChild(BotonAccion);
+}
 
 function CrearBotonesIndividuales(texto){
     const Boton = document.createElement("button");
@@ -174,8 +188,11 @@ const CrearBoton1 = {
     3 : CrearBotones
 }
 
-function AsignarAccion(boton, tarea){
-  
+function AsignarAccion(accion, boton, tarea){
+    boton.addEventListener("click", () => {
+        Acciones[accion](tarea);
+    })
+    return boton;
 }
 
 const Acciones = {
@@ -185,16 +202,17 @@ const Acciones = {
 }
 
 function Deshacer(tarea){
-    
+    console.log("deshecho");
 }
 
 function Mover(tarea){
-    const Nuevoestado = tarea.estado + 1;
-    MoverEstados(Estados(tarea.estado))(Listas(tarea.estado),Listas(tarea.estado + 1),tarea);
+    const estadoOriginal = tarea.estado;
+    tarea.estado = tarea.estado + 1;
+    MoverEstados(Estados(estadoOriginal))(Listas(estadoOriginal),Listas(tarea.estado),tarea);
 }
 
 function Eliminar(tarea){
-    
+    console.log("Eliminaddo");
 }
 /*
 const configEstados = { // Lista de estados
