@@ -99,10 +99,11 @@ function AgregarTareas(texto){ // Añade una nueva tarea con id, texto y estado
         textoBotonAccion: 1,
         estado: 1
     };
-    tareas.push(TareaNueva);
+    tareas.push(GuardarTareasLocalStorage);
     TareasPorHacer_List.push(TareaNueva)
     GuardarTareasLocalStorage();
-    RenderInicial(TareaNueva);
+    console.log("f0",TareaNueva);
+    RenderInicial();
 }
 
 function CrearElementosLista(listaHTML, tarea){
@@ -115,6 +116,7 @@ function CrearElementosLista(listaHTML, tarea){
     const Texto = document.createElement("span");
     Texto.textContent = tarea.texto;
     BloqueTexto.appendChild(Texto);
+    console.log("f1",tarea);
     if(CrearBoton1[tarea.estado]){
         CrearBotones(tarea,BloqueBoton);
     }
@@ -135,6 +137,7 @@ function CambiarEstado(id,nuevoEstado){ // Cambia el estado de una tarea
 */
 function RenderInicial(){ //(Cambiar) Actualiza todas las tareas para ver si cambiaron de estado
     TareasPorHacer_List.forEach(tarea =>{
+        console.log(tarea);
         CrearElementosLista(TareasPorHacer,tarea);
     })
     TareasEnProceso_List.forEach(tarea =>{
@@ -164,11 +167,12 @@ function CrearElementos(TareaNueva,tarea,nombreBoton,estado){ // Crea elementos 
 
 function CrearBotones(tarea,Bloque){
     if(tarea.textoBotonDeshacer){
-        const BotonDeshacer = CrearBotonesIndividuales(0);
-        BotonDeshacer = AsignarAccion(0,BotonDeshacer,tarea);
+        console.log("f2",tarea);
+        let BotonDeshacer = CrearBotonesIndividuales(0);
+        AsignarAccion(0,BotonDeshacer,tarea);
         Bloque.appendChild(BotonDeshacer);
     }
-    const BotonAccion = CrearBotonesIndividuales(tarea.textoBotonAccion);
+    let BotonAccion = CrearBotonesIndividuales(tarea.textoBotonAccion);
     BotonAccion = AsignarAccion(tarea.textoBotonAccion,BotonAccion,tarea);
     Bloque.appendChild(BotonAccion);
 }
@@ -189,9 +193,10 @@ const CrearBoton1 = {
 }
 
 function AsignarAccion(accion, boton, tarea){
-    boton.addEventListener("click", () => {
+    console.log("f3",tarea);
+    boton.addEventListener("click", () => {        
         Acciones[accion](tarea);
-    })
+    }, {once : true});
     return boton;
 }
 
@@ -206,9 +211,12 @@ function Deshacer(tarea){
 }
 
 function Mover(tarea){
+    console.log("f4",tarea);
     const estadoOriginal = tarea.estado;
     tarea.estado = tarea.estado + 1;
-    MoverEstados(Estados(estadoOriginal))(Listas(estadoOriginal),Listas(tarea.estado),tarea);
+    console.log("jija",Listas[Estado[estadoOriginal]]);
+    console.log(Listas[Estado[tarea.estado]]);
+    MoverEstados[Estados[estadoOriginal]](Listas[Estado[estadoOriginal]],Listas[Estado[tarea.estado]],tarea);
 }
 
 function Eliminar(tarea){
