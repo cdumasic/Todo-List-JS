@@ -51,7 +51,7 @@ function AlmacenarTareasEnListas(lista,tarea){
 const MoverEstados = {
     'por-hacer': MoverTareasEnListas,
     'en-proceso': MoverTareasEnListas,
-    'completado': MoverTareasEnListas
+    'completado': MoverTareasEnListas,
 }
 
 function MoverTareasEnListas(lista1,lista2,tarea){
@@ -66,43 +66,20 @@ const EliminarEstados = {
 }
 
 function EliminarTareasEnLista(lista, tarea){
-    lista.pop(tarea);
+    lista.remove(tarea);
 }
 
-/*
-function EstadoPorHacer(TareaNueva,tarea){ // Pone una tarea en estado por hacer
-    TareasPorHacer.appendChild(TareaNueva);
-    CrearElementos(TareaNueva,tarea,"Comenzando","en-proceso");
-}
-function EstadoEnProceso(TareaNueva,tarea){ // Pone una tarea en estado en proceso
-    TareasEnProceso.appendChild(TareaNueva);
-    CrearElementos(TareaNueva,tarea,"Deshacer","por-hacer")
-    CrearElementos(TareaNueva,tarea,"Completado","completado")
-}
-function EstadoCompletado(TareaNueva,tarea){ // Pone una tarea en estado completado
-    TareasCompletadas.appendChild(TareaNueva);
-    CrearElementos(TareaNueva,tarea,"Deshacer","en-proceso")
-    const Boton5 = CrearBotones("Eliminar");
-    Boton5.onclick = () => {
-        tareas = tareas.filter(t => t.id !== tarea.id);
-        GuardarTareas();
-        RenderTareas();
-    }
-    TareaNueva.appendChild(Boton5);
-}
-*/
 function AgregarTareas(texto){ // Añade una nueva tarea con id, texto y estado
     const TareaNueva = {
         id: Date.now(),
         texto: texto,
-        textoBotonDeshacer: true,
+        textoBotonDeshacer: false,
         textoBotonAccion: 1,
         estado: 1
     };
-    tareas.push(GuardarTareasLocalStorage);
+    tareas.push(TareaNueva);
     TareasPorHacer_List.push(TareaNueva)
     GuardarTareasLocalStorage();
-    console.log("f0",TareaNueva);
     RenderInicial();
 }
 
@@ -116,7 +93,6 @@ function CrearElementosLista(listaHTML, tarea){
     const Texto = document.createElement("span");
     Texto.textContent = tarea.texto;
     BloqueTexto.appendChild(Texto);
-    console.log("f1",tarea);
     if(CrearBoton1[tarea.estado]){
         CrearBotones(tarea,BloqueBoton);
     }
@@ -125,19 +101,9 @@ function CrearElementosLista(listaHTML, tarea){
     TareaNueva.appendChild(BloquePrincipal);
     listaHTML.appendChild(TareaNueva);
 }
-/*
-function CambiarEstado(id,nuevoEstado){ // Cambia el estado de una tarea
-    const tarea = tareas.find(t => t.id === id);
-    if (tarea) tarea.estado = nuevoEstado;
-    GuardarTareas();
-    RenderTareas();
-}
 
-
-*/
 function RenderInicial(){ //(Cambiar) Actualiza todas las tareas para ver si cambiaron de estado
     TareasPorHacer_List.forEach(tarea =>{
-        console.log(tarea);
         CrearElementosLista(TareasPorHacer,tarea);
     })
     TareasEnProceso_List.forEach(tarea =>{
@@ -146,6 +112,7 @@ function RenderInicial(){ //(Cambiar) Actualiza todas las tareas para ver si cam
     TareasCompletadas_List.forEach(tarea =>{
         CrearElementosLista(TareasCompletadas,tarea);
     })
+
 }
 
 function RenderTareas(tarea){ //(Cambiar) Actualiza todas las tareas para ver si cambiaron de estado
@@ -155,24 +122,14 @@ function RenderTareas(tarea){ //(Cambiar) Actualiza todas las tareas para ver si
 function GuardarTareasLocalStorage(){ // Guarda las tareas en el local storage
     localStorage.setItem("tareas",JSON.stringify(tareas)); 
 }
-/*
-function CrearElementos(TareaNueva,tarea,nombreBoton,estado){ // Crea elementos de botones
-    const Boton = CrearBotones(nombreBoton);
-    Boton.onclick = () => {
-        CambiarEstado(tarea.id,estado)
-    }
-    TareaNueva.appendChild(Boton);
-}
-*/
 
 function CrearBotones(tarea,Bloque){
     if(tarea.textoBotonDeshacer){
-        console.log("f2",tarea);
         let BotonDeshacer = CrearBotonesIndividuales(0);
         AsignarAccion(0,BotonDeshacer,tarea);
         Bloque.appendChild(BotonDeshacer);
     }
-    let BotonAccion = CrearBotonesIndividuales(tarea.textoBotonAccion);
+    let BotonAccion = CrearBotonesIndividuales(tarea.estado);
     BotonAccion = AsignarAccion(tarea.textoBotonAccion,BotonAccion,tarea);
     Bloque.appendChild(BotonAccion);
 }
@@ -193,7 +150,6 @@ const CrearBoton1 = {
 }
 
 function AsignarAccion(accion, boton, tarea){
-    console.log("f3",tarea);
     boton.addEventListener("click", () => {        
         Acciones[accion](tarea);
     }, {once : true});
@@ -208,34 +164,45 @@ const Acciones = {
 
 function Deshacer(tarea){
     console.log("deshecho");
+    const estadoOriginal = tarea.estado;
+    tarea.estado -= 1;
+    if(tarea.estado == 1){
+        tarea.textoBotonDeshacer = false;
+    }
+    tarea.textoBotonAccion = 1; 
+    ListasHTML[Estados[estadoOriginal]].replaceChildren();
+    MoverEstados[Estados[estadoOriginal]](Listas[Estados[estadoOriginal]],Listas[Estados[tarea.estado]],tarea);
+    RenderInicial();
 }
 
 function Mover(tarea){
-    console.log("f4",tarea);
     const estadoOriginal = tarea.estado;
-    tarea.estado = tarea.estado + 1;
-    console.log("jija",Listas[Estado[estadoOriginal]]);
-    console.log(Listas[Estado[tarea.estado]]);
-    MoverEstados[Estados[estadoOriginal]](Listas[Estado[estadoOriginal]],Listas[Estado[tarea.estado]],tarea);
+    tarea.estado += 1;
+    tarea.textoBotonDeshacer = true;
+    if(tarea.estado == 3){
+       tarea.textoBotonAccion = 2; 
+    }
+    ListasHTML[Estados[estadoOriginal]].replaceChildren();
+    MoverEstados[Estados[estadoOriginal]](Listas[Estados[estadoOriginal]],Listas[Estados[tarea.estado]],tarea);
+    RenderInicial();
 }
 
 function Eliminar(tarea){
     console.log("Eliminaddo");
+    const estadoOriginal = tarea.estado;
+    ListasHTML[Estados[estadoOriginal]].replaceChildren();
+    EliminarEstados[Estados[estadoOriginal]](Listas[Estados[tarea.estado]],tarea);
+    RenderInicial();
 }
-/*
-const configEstados = { // Lista de estados
-    'por-hacer': EstadoPorHacer,
-    'en-proceso': EstadoEnProceso,
-    'completado': EstadoCompletado
-};
-*/
 
 if (tareasGuardadas) { // Condicional para revisar si hay tareas disponibles y ponerlas
     const tareasCargadas = JSON.parse(tareasGuardadas);
     tareas = tareasCargadas;
+    console.log(tareasCargadas);
     tareasCargadas.forEach(tarea =>{
-        if(ListaEstados[tarea.estado]){
-            ListaEstados[tarea.estado](Listas[tarea.estado],tarea); 
+        if(ListaEstados[Estados[tarea.estado]]){
+            console.log("Entro");
+            ListaEstados[Estados[tarea.estado]](Listas[Estados[tarea.estado]],tarea);
         }
     })
     console.log(TareasPorHacer_List, "por hacer");
