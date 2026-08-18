@@ -61,3 +61,15 @@ function guardarTareasLocalStorage(){ // Guarda las tareas en el local storage
     localStorage.setItem("tareas",JSON.stringify(tareas)); 
 }
 
+function cambiarEstado(tarea,nuevoEstado){
+    tareaNueva = [...tarea];
+    tareaNueva = {
+        ...tareaNueva,
+        estado : NuevoEstado
+    }
+    return tareaNueva;
+}
+
+function ActualizarLista(){
+    tareas = {}
+}
