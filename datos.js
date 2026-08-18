@@ -7,7 +7,7 @@ const Estados = {
     2 : 'en-proceso',
     3 : 'completado',
 }
-const EstadosBotonAccion = {
+export const EstadosBotonAccion = {
     0 : 'Deshacer',
     1 : 'Mover',
     2 : 'Eliminar'
@@ -21,10 +21,13 @@ function eliminarTareasEnLista(lista, tarea){
     lista.remove(tarea);
 }
 
-export function agregarTareas(texto){ // Añade una nueva tarea con id, texto y estado
-    const TareaNueva = crearNuevaTarea(texto,false,1,1);
-    almacenarTareas(TareaNueva);
+export function agregarTareas(tarea){ // Añade una nueva tarea con id, texto y estado
+    const NuevaTarea = tarea;
+    const texto = NuevaTarea.value;
+    const TareaCreada = crearNuevaTarea(texto,false,1,1);
+    setTareas(TareaCreada);
     guardarTareasLocalStorage();
+    return TareaCreada;
 }
 
 export function renderizar(){
@@ -39,6 +42,11 @@ export function renderizar(){
     }
 }
 
+export function getTareas(){
+    const AllTareas = [...tareas];
+    return AllTareas;
+}
+
 function crearNuevaTarea(texto,BotonDeshacer,BotonAccion,estado){
     const TareaNueva = {
         id: Date.now(),
@@ -50,7 +58,7 @@ function crearNuevaTarea(texto,BotonDeshacer,BotonAccion,estado){
     return TareaNueva;
 }
 
-function almacenarTareas(TareaNueva){
+function setTareas(TareaNueva){
     tareas = [
         ...tareas,
         TareaNueva
@@ -68,8 +76,4 @@ function cambiarEstado(tarea,nuevoEstado){
         estado : NuevoEstado
     }
     return tareaNueva;
-}
-
-function ActualizarLista(){
-    tareas = {}
 }
