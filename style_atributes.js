@@ -4,3 +4,8 @@ export const configEstilosBotones = {
     'Deshacer':'text-white bg-red-400 hover:bg-red-300 px-2 py-1 mx-1 rounded-md font-medium shadow-sm transition-all active:scale-95 cursor-pointer',
     'Eliminar':'text-black bg-red-600 hover:bg-red-500 px-2 py-1 mx-1 rounded-md font-medium shadow-sm transition-all active:scale-95 cursor-pointer' 
 }
+
+export const configEstiloUItarea = {
+    1 : 'mx-2 flex justify-between',
+    2 : 'flex justify-between'
+}
