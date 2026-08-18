@@ -1,5 +1,5 @@
-import { configEstilosBotones } from './style_atributes.js'
-import { agregarTareas, renderizar } from './datos.js'
+import { configEstilosBotones, configEstiloUItarea } from './style_atributes.js'
+import { agregarTareas, getTareas, renderizar } from './datos.js'
 // Constantes para obtener el formulario, la tarea ingresada, y las listas de tareas
 const Formulario = document.querySelector('[data-js="form-1"]')
 const tareaIngresada = document.querySelector('[data-js="input-text-1"]')
@@ -11,9 +11,52 @@ Formulario.addEventListener("submit", function(event){ // Obtener la tarea del f
     event.preventDefault();
     if(tareaIngresada.value.trim() == "") return;
     console.log("Tarea Añadida: ",tareaIngresada.value);
-    agregarTareas(tareaIngresada.value);
+    const TareaNueva = agregarTareas(tareaIngresada);
+    crearNuevaTarea(TareaNueva);
     tareaIngresada.value = "";
     tareaIngresada.focus();
 })
 
 renderizar();
+listarTareas();
+
+function listarTareas(){
+    const tareas = getTareas();
+    tareas.forEach(tarea => {
+        crearNuevaTarea(tarea);
+    });
+}
+
+
+function crearNuevaTarea(tarea){
+    const BloquePrincipal = crearNuevaUITarea(tarea);
+    TareasPorHacer.appendChild(BloquePrincipal);
+}
+
+function crearBotonesPorHacer(bloque){
+    const Boton = document.createElement("button");
+    Boton.setAttribute("class",configEstilosBotones['Comenzando']);
+    Boton.textContent = 'Comenzando';
+    bloque.appendChild(Boton);
+}
+
+function crearNuevaUITarea(tarea){
+    const NuevaTarea = {...tarea};
+    const BloqueTareaNueva = document.createElement("li");
+    const BloquePrincipal = document.createElement("div");
+    BloquePrincipal.setAttribute("class",configEstiloUItarea[1]);
+    const BloqueTexto = document.createElement("div");
+    const BloqueBoton = document.createElement("div");
+    BloquePrincipal.setAttribute("class",configEstiloUItarea[2]);
+    const Texto = document.createElement("span");
+    Texto.textContent = NuevaTarea.texto;
+    BloqueTexto.appendChild(Texto);
+    crearBotonesPorHacer(BloqueBoton);
+    BloquePrincipal.appendChild(BloqueTexto);
+    BloquePrincipal.appendChild(BloqueBoton);
+    BloqueTareaNueva.appendChild(BloquePrincipal);
+    
+    return BloqueTareaNueva;
+}
+
+
