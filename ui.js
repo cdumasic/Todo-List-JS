@@ -6,7 +6,6 @@ const tareaIngresada = document.querySelector('[data-js="input-text-1"]')
 const TareasPorHacer = document.querySelector('[data-js="list-task-1"]');
 const TareasEnProceso = document.querySelector('[data-js="list-task-2"]');
 const TareasCompletadas = document.querySelector('[data-js="list-task-3"]');
-const BotonesEliminar = document.querySelectorAll('[data-js="btn-eliminar"]');
 
 
 Formulario.addEventListener("submit", function(event){ // Obtener la tarea del formulario 
@@ -22,16 +21,14 @@ Formulario.addEventListener("submit", function(event){ // Obtener la tarea del f
 renderizar();
 listarTareas();
 
-BotonesEliminar.forEach(boton => {
-    boton.addEventListener('click', event =>{
+TareasPorHacer.addEventListener('click', event =>{
+   // if(event.target.classList.contains('[data-js="btn-eliminar"]')){
         if(confirm('GG?')){
-            const bloque = event.target.parentNode.parentNode
-            console.log(bloque);
+            const bloque = event.target.closest('[data-js="lista-items"]');
+            bloque.remove();
         }
-    })
+    //}
 })
-
-console.log(BotonesEliminar);
 
 function listarTareas(){
     const tareas = getTareas();
@@ -75,6 +72,7 @@ function borrarBotonEliminar(){
 function crearNuevaUITarea(tarea){
     const NuevaTarea = {...tarea};
     const BloqueTareaNueva = document.createElement("li");
+    BloqueTareaNueva.setAttribute("data-js","lista-items");
     const BloquePrincipal = document.createElement("div");
     BloquePrincipal.setAttribute("class",configEstiloUItarea[1]);
     const BloqueTexto = document.createElement("div");
