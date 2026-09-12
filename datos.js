@@ -33,6 +33,10 @@ export function agregarTareas(tarea){ // Añade una nueva tarea con id, texto y 
     return TareaCreada;
 }
  
+export function eliminarTareas(tarea){
+
+}
+
 export function renderizar(){
     console.log(ultimoID + "renderizar");
     if (tareasGuardadas) { // Condicional para revisar si hay tareas disponibles y ponerlas
@@ -73,11 +77,11 @@ function setTareas(TareaNueva){
     ]
 }
 
-function eliminarElemento(idParaEliminar){
-    const AllTareas = [...tareas];
+export function eliminarTarea(idParaEliminar){
+    let AllTareas = [...tareas];
     AllTareas = AllTareas.filter(item => item.id !== idParaEliminar);
     tareas = [...AllTareas];
-    guardarEnStorage(); // Guarda la lista actualizada
+    guardarTareasLocalStorage(); // Guarda la lista actualizada
 }
 
 function guardarTareasLocalStorage(){ // Guarda las tareas en el local storage

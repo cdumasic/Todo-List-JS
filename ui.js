@@ -1,5 +1,5 @@
 import { configEstilosBotones, configEstiloUItarea } from './style_atributes.js'
-import { agregarTareas, getTareas, renderizar } from './datos.js'
+import { agregarTareas, eliminarTarea, getTareas, renderizar } from './datos.js'
 // Constantes para obtener el formulario, la tarea ingresada, y las listas de tareas
 const Formulario = document.querySelector('[data-js="form-1"]')
 const tareaIngresada = document.querySelector('[data-js="input-text-1"]')
@@ -25,6 +25,8 @@ TareasPorHacer.addEventListener('click', event =>{
    if(event.target.closest('[data-js="btn-eliminar"]')){
         if(confirm('Seguro que desea eliminar?')){
             const bloque = event.target.closest('[data-js="lista-items"]');
+            const id = Number(bloque.dataset.id);
+            eliminarTarea(id);
             bloque.remove();
         }
     }
@@ -57,22 +59,12 @@ function crearBotonesEliminar(bloque){
     Boton.innerHTML = '<i class="fi fi-rr-trash"></i>';
     bloque.appendChild(Boton);
 }
-/*
-function borrarBotonEliminar(){
-    BotonesEliminar.forEach(boton => {
-        boton.addEventListener('click', event =>{
-            if(confirm('GG?')){
-                const bloque = event.target.parentNode.parentNode
-                console.log(bloque);
-            }
-        })
-    })
-}*/
 
 function crearNuevaUITarea(tarea){
     const NuevaTarea = {...tarea};
     const BloqueTareaNueva = document.createElement("li");
     BloqueTareaNueva.setAttribute("data-js","lista-items");
+    BloqueTareaNueva.setAttribute("data-id",NuevaTarea.id);
     const BloquePrincipal = document.createElement("div");
     BloquePrincipal.setAttribute("class",configEstiloUItarea[1]);
     const BloqueTexto = document.createElement("div");
