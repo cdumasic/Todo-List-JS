@@ -22,12 +22,12 @@ renderizar();
 listarTareas();
 
 TareasPorHacer.addEventListener('click', event =>{
-   // if(event.target.classList.contains('[data-js="btn-eliminar"]')){
-        if(confirm('GG?')){
+   if(event.target.closest('[data-js="btn-eliminar"]')){
+        if(confirm('Seguro que desea eliminar?')){
             const bloque = event.target.closest('[data-js="lista-items"]');
             bloque.remove();
         }
-    //}
+    }
 })
 
 function listarTareas(){
